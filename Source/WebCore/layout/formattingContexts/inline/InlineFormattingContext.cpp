@@ -509,10 +509,10 @@ void InlineFormattingContext::resetBoxGeometriesForDiscardedContent(const Inline
         if (!hasBoxGeometry)
             continue;
         geometryForBox(inlineItem.layoutBox()).reset();
-        // Floats and inline boxes that start after the clamp point are invisible boxes, and so is "any absolutely positioned box
-        // which has an invisible box within its containing block chain" (see LineClampUpdater::setIsForcedHidden).
+        // Floats, atomic inline-level boxes and inline boxes that start after the clamp point are invisible boxes, and so is "any absolutely
+        // positioned box which has an invisible box within its containing block chain" (see LineClampUpdater::setIsForcedHidden).
         // https://drafts.csswg.org/css-overflow-4/#line-clamp-containers
-        if (inlineItem.isFloat() || inlineItem.isInlineBoxStart())
+        if (inlineItem.isFloat() || inlineItem.isAtomicInlineBox() || inlineItem.isInlineBoxStart())
             setIsForcedHidden(inlineItem.layoutBox());
     }
 
